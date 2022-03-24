@@ -1,18 +1,13 @@
-#!/usr/bin/env sh
-
-# остановить публикацию при ошибках
-set -e
-
-# сборка
 npm run build
-
-# переход в каталог сборки
-cd dist
+cd dist || exit
 
 git init
-git add -A
+git remote add origin https://github.com/STmihan/crypro-table-vue.git
+
+git branch -m master site
+git add .
 git commit -m 'deploy'
 
-git push -f git@github.com:STmihan/crypto-table.git master:gh-pages
+git push -f origin site
 
-cd -
+cd ..
