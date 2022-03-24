@@ -1,3 +1,5 @@
-module.exports = ({
-  publicPath: '/crypro-table-vue/'
-})
+module.exports = {
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/crypro-table-vue/'
+    : '/'
+}
