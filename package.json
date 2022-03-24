@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "deploy": "start deploy.cmd",
-    "test-run": "serve -s dist -l 80"
+    "test-run": "serve -s dist -l 80",
+    "publish": "npm run build & git add . & git commit -m 'deploy' & git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
     "axios": "^0.26.1",
