@@ -6,7 +6,7 @@ public class UserRepository
 {
     public static List<User> Users = new()
     {
-        new User {Username = "STmihanAdmin", Password = "admin", Role = new [] {Role.User}, Coins = "ETH,BTC"},
-        new User {Username = "STmihan", Password = "admin", Role = new [] {Role.User}, Coins = "BTC"}
+        new User {Username = "STmihanAdmin", Password = "admin", Coins = new List<Coin> {new() {Name = "BTC"}}},
+        new User {Username = "STmihan", Password = "admin", Coins = new List<Coin> {new() {Name = "BTC"}, new() {Name = "ETH"}}}
     };
 }

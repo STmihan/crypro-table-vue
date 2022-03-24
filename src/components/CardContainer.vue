@@ -23,8 +23,8 @@ export default {
     }
   },
   methods: {
-    deleteCard(card) {
-      this.$emit('deleteCard', card)
+    deleteCard(name) {
+      this.$emit('deleteCard', name)
     }
   }
 };

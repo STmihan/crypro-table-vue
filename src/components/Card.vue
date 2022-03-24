@@ -2,7 +2,7 @@
   <div class="card">
     <h3>{{card.price}}</h3>
     <p>{{ card.name }}</p>
-    <StyledButton @click="deleteCard(card)" class="btn">Delete</StyledButton>
+    <StyledButton @click="deleteCard(card.name)" class="btn">Delete</StyledButton>
   </div>
 </template>
 

@@ -12,8 +12,7 @@ public class LoginService
     {
         var claims = new[]
         {
-            new Claim(ClaimTypes.NameIdentifier, user.Username),
-            new Claim(ClaimTypes.Role, user.Role.ToString() ?? string.Empty),
+            new Claim(ClaimTypes.NameIdentifier, user.Username)
         };
 
         var token = new JwtSecurityToken(
@@ -30,11 +29,16 @@ public class LoginService
         var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
         return tokenString;
     }
+
+    public LoginResponse VerifyUser(UserLogin userLogin)
+    {
+        
+    }
 }
 
 public class LoginResponse
 {
     public string? Token { get; set; }
     public string Username { get; set; }
-    public string Coins { get; set; }
+    public List<Coin> Coins { get; set; }
 }

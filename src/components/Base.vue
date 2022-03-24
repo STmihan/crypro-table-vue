@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <Login/>
     <AddMenu @addCard="addCard" />
     <CardContainer @deleteCard="deleteCard" :cards="coins"/>
     <StyledButton @click="updatePrice">Update</StyledButton>
@@ -8,47 +7,41 @@
 </template>
 
 <script>
-
-import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
+import { getCoins, getPrices, saveCoins } from "@/wrappers/dto";
 
 export default {
   name: "Base",
+  data() {
+    return {
+      coins: []
+    }
+  },
   methods: {
-    deleteCard(card) {
-      const coins = this.coinsString.split(',');
-      const c = coins.filter(coin => card.name !== coin);
-      let str = '';
-      c.forEach(v => str+=v + ',');
-      str = str.slice(0, -1);
-      this.setCoins(str);
+    deleteCard(name) {
+      this.coins = this.coins.filter(coin => coin.name !== name);
     },
-    addCard(card) {
-      const coins = this.coinsString.split(',');
-      if (card == null) return;
-      if (coins.find(coin => coin === card.name)) return;
-      this.setCoins(this.coinsString.length ? this.coinsString + "," + card.name : card.name);
+    addCard(name) {
+      if(this.coins.find(coin => coin.name === name) || name.trim() === '') return;
+      this.coins.push({name: name, price: '-'});
       this.updatePrice();
+      saveCoins(this.coins);
     },
     updatePrice() {
-      this.updatePriceAction();
+      getPrices(this.coins).then(value => {
+        for (let i = 0; i < value.length; i++) {
+          this.coins.find(coin => coin.name === value[i].name).price = value[i].price;
+        }
+      });
     },
-    ...mapActions({
-      updatePriceAction: "updatePrices"
-    }),
-    ...mapMutations({
-      setCoins: "setCoins"
-    })
+    setup() {
+      const coins = getCoins();
+      if (coins !== '')
+        coins.forEach(coin => this.coins.push({name: coin, price: '-'}));
+    }
   },
   mounted() {
-    this.setCoins("BTC,ETH");
-  },
-  computed: {
-    ...mapState({
-      coins: state => state.coins
-    }),
-    ...mapGetters({
-      coinsString: 'coinsString'
-    })
+    this.setup();
+    this.updatePrice();
   }
 };
 </script>

@@ -22,13 +22,8 @@ export default {
   },
   methods: {
     onSubmit(){
-      this.$emit('addCard', this.createCard())
-    },
-    createCard(){
-      if (this.name == null || this.name.trim() === '') return null;
-      const card = {name: this.name.toUpperCase(), price: '-'};
+      this.$emit('addCard', this.name.toUpperCase());
       this.name = '';
-      return card;
     }
   }
 };
