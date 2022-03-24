@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h3>{{card.price}}</h3>
+    <h4>{{card.price}}</h4>
     <p>{{ card.name }}</p>
     <StyledButton @click="deleteCard(card.name)" class="btn">Delete</StyledButton>
   </div>
